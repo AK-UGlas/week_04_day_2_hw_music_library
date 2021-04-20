@@ -6,7 +6,7 @@ from models.artist import Artist
 import repositories.artist_repository as artist_repository
 
 def save(album):
-    sql = "INSERT INTO albums (title, genre, artist) VALUES (%s, %s, %s) RETURNING *"
+    sql = "INSERT INTO albums (title, genre, artist_id) VALUES (%s, %s, %s) RETURNING *"
     values = [album.title, album.genre, album.artist.id] # in this schema, artist must exist before album
     results = run_sql(sql, values)
     id = results[0]['id']
