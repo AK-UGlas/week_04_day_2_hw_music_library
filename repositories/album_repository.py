@@ -22,7 +22,7 @@ def make_album(row):
 def select(id):
     album = None
     sql = "SELECT * FROM albums WHERE id = (%s)"
-    result = run_sql(sql, [id]) # remember, we only need to return the first index (the list should be length=1)
+    result = run_sql(sql, [id])
     if result:
         album = make_album(result[0])
     return album

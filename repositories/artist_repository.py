@@ -13,21 +13,20 @@ def save(artist):
 def delete_all():
     run_sql("DELETE FROM artists")
 
+def make_artist(row):
+    return Artist(row['name'], row['id'])
+
 def select(id):
     artist = None
-    # remember, we only need to return the first index (the list should be length=1)
-    result = run_sql("SELECT * FROM artists WHERE id = (%s)", [id])[0] 
-    if result is not None:
-        artist = Artist(result['name'], result['id'])
+    results = run_sql("SELECT * FROM artists WHERE id = (%s)", [id])
+    if results:
+        result = results[0]
+        artist = make_artist(result)
     return artist
 
 def select_all():
-    artists = []
     results = run_sql("SELECT * FROM artists")
-    if results is not None:
-        for row in results:
-            artists.append( Artist(row['name'], row['id']))
-    return artists
+    return [make_artist(row) for row in results]
 
 def albums(artist):
     albums = [] # must return something, so set up return value here
