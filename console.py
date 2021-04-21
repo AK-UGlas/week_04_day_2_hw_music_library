@@ -28,6 +28,10 @@ album_repository.save(album_3)
 valid_album_id = album_1.id
 found_album = album_repository.select(valid_album_id)
 
+invalid_album_id = 12312
+empty_album = album_repository.select(invalid_album_id) # should return None
+
+
 valid_artist_id = metallica.id
 # find artist
 found_artist = artist_repository.select(valid_artist_id)
