@@ -14,7 +14,20 @@ def delete_all():
     run_sql("DELETE FROM artists")
 
 def select(id):
-    pass
+    artist = None
+    # remember, we only need to return the first index (the list should be length=1)
+    result = run_sql("SELECT * FROM artists WHERE id = (%s)", [id])[0] 
+    if result is not None:
+        artist = Artist(result['name'], result['id'])
+    return artist
+
+def select_all():
+    artists = []
+    results = run_sql("SELECT * FROM artists")
+    if results is not None:
+        for row in results:
+            artists.append( Artist(row['name'], row['id']))
+    return artists
 
 def albums(artist):
     albums = [] # must return something, so set up return value here
@@ -26,3 +39,8 @@ def albums(artist):
         albums.append( Album(row['title'], row['genre'], artist, row['id']) )
 
     return albums
+
+def display_artists(artists):
+    print("  id  |     name    ")
+    for artist in artists:
+        print(f"  {artist.id}\t {artist.name}")

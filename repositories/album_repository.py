@@ -26,5 +26,19 @@ def select(id):
         album = Album(result['title'], result['genre'], artist, result['id'])
     return album
 
+def select_all():
+    albums = []
+    results = run_sql("SELECT * FROM albums")
+    if results is not None:
+        for row in results:
+            artist = artist_repository.select(row['artist_id'])
+            albums.append( Album(row['title'], row['genre'], artist, row['id']) )
+    return albums
+
 def delete(id):
     run_sql("DELETE FROM albums WHERE id = (%s)", [id])
+
+def display_albums(albums):
+    print("  id  |          title         |   genre   | artist_name ")
+    for album in albums:
+        print(f"  {album.id}\t{album.title}\t{album.genre}\t{album.artist.name}")

@@ -25,13 +25,24 @@ album_repository.save(album_3)
 
 # queries:
 # 1: Find artist/album by id
-valid_id = album_1.id
+valid_album_id = album_1.id
+found_album = album_repository.select(valid_album_id)
 
+valid_artist_id = metallica.id
+# find artist
+found_artist = artist_repository.select(valid_artist_id)
+# # find all albums by that artist
+metallica_albums = artist_repository.albums(metallica)
 
-# 3: delete all albums / artists
-album_repository.delete_all()
-artist_repository.delete_all()
+# 3: List all albums
+albums = album_repository.select_all()
+album_repository.display_albums(albums)
 
+# 4: list all artists
+artists = artist_repository.select_all()
+artist_repository.display_artists(artists)
+# 5: delete all albums / artists
+# album_repository.delete_all()
+# artist_repository.delete_all()
 
-
-pdb.set_trace()
+#pdb.set_trace()
